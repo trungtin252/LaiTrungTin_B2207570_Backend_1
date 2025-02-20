@@ -8,8 +8,8 @@
                 Danh bạ
                 <i class="fas fa-address-book"></i>
             </h4>
-            <ContactList v-if="filteredContactsCount > 0" :contacts="filteredContacts"
-                v-model:activeIndex="activeIndex" />
+            <ContactList v-if="filteredContactsCount > 0" :contacts="filteredContacts" v-model:activeIndex="activeIndex"
+                @edit-id="editContact" />
             <p v-else>Không có liên hệ nào.</p>
             <div class="mt-3 row justify-content-around align-items-center">
                 <button class="btn btn-sm btn-primary" @click="refreshList()">
@@ -40,7 +40,6 @@ import ContactCard from "@/components/ContactCard.vue";
 import InputSearch from "@/components/InputSearch.vue";
 import ContactList from "@/components/ContactList.vue";
 import ContactService from "@/services/contact.service";
-
 export default {
     components: {
         ContactCard,
@@ -109,13 +108,16 @@ export default {
         goToAddContact() {
             this.$router.push({ name: "contact.add" });
         },
+        editContact(id) {
+            this.$router.push({ name: "contact.edit", params: { id } });
+        }
     },
     mounted() {
         this.refreshList();
-        console.log("Moute");
     },
 
 }
+
 </script>
 <style scoped>
 .page {
